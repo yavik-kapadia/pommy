@@ -16,28 +16,6 @@ export default function Timer() {
     const [session, setSession] = useState(0) // 
     const [timer, setTimer] = useState(workDuration)
 
-    useEffect(() => { 
-        if (session % 2 === 0 && session > 0) {
-            setIsBreak(true)
-            setIsWorkSession(false)
-            setTimer(breakDuration)
-            console.log("I'm the problem 1")
-        }
-        else if (session % 6 === 0 && session > 0 ) {
-            setIsBreak(true)
-            setIsWorkSession(false)
-            setTimer(longBreakDuration)
-            console.log("I'm the problem 2")
-        }
-        else {
-            setIsBreak(false)
-            setIsWorkSession(true)
-            setTimer(workDuration)
-            console.log("I'm the problem 3")
-        }
-        
-    }, [breakDuration, isBreak, isWorkSession, longBreakDuration, session, timer, workDuration])
-
 
     const minutes = Math.floor(timer / 60)
     const seconds = timer % 60
@@ -51,17 +29,14 @@ export default function Timer() {
         setIsActive(false)
         setTimer(timer => {
             if (isWorkSession) {
-                console.log("I'm the problem 4")
-                return workDuration * 60
+                return workDuration
 
             }
             else if (isBreak) {
-                console.log("I'm the problem 5")
-                return breakDuration * 60
+                return breakDuration
             }
             else {
-                console.log("I'm the problem 6")
-                return longBreakDuration * 60
+                return longBreakDuration
             }  
         })
     }
@@ -82,7 +57,7 @@ export default function Timer() {
         return () => {
             console.log("I'm the problem")
             if (interval !== null) {
-                console.log("I'm the problem")
+                console.log("I'm the problem 10")
                 clearInterval(interval);
             }
         };
@@ -92,9 +67,29 @@ export default function Timer() {
         if (timer === 0) {
             setIsActive(false)
             setSession(session => session + 1)
+        
+        
+            if (session % 2 === 0 && session > 0 && !isActive) {
+                setIsBreak(true)
+                setIsWorkSession(false)
+                setTimer(breakDuration)
+            
+            }
+            else if (session % 6 === 0 && session > 0) {
+                setIsBreak(true)
+                setIsWorkSession(false)
+                setTimer(longBreakDuration)
+            }
+            else {
+                setIsBreak(false)
+                setIsWorkSession(true)
+                setTimer(workDuration)
+            
+            }
         }
     }
-        , [timer])
+        , [timer, session, isActive, breakDuration, longBreakDuration, workDuration])
+    
     
     useEffect(() => {
         if (session === numOfSessions) {
@@ -105,8 +100,8 @@ export default function Timer() {
     
 
     return (
-        <div className="">
-            <p className="text-2xl text-center p-2">Timer</p>
+        <div>  
+            <p className="text-2xl text-center font-extralight">Pommy</p>
             <div>
                 <p className="text-center text-3xl p-24">{minutes == 0 ? "00" : minutes}:{seconds == 0 ? '00' : seconds}</p>
             </div>
