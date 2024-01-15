@@ -15,22 +15,20 @@ export default function Timer() {
     const [isActive, setIsActive] = useState(false)
     const [session, setSession] = useState(0) // 
     const [timer, setTimer] = useState(workDuration)
-
-
+    // Math
     const minutes = Math.floor(timer / 60)
     const seconds = timer % 60
 
+    // Start or Pause timer
     const toggle = () => {
         setIsActive(!isActive)
 
     }
-
     const reset = () => {
         setIsActive(false)
         setTimer(timer => {
             if (isWorkSession) {
                 return workDuration
-
             }
             else if (isBreak) {
                 return breakDuration
@@ -40,17 +38,16 @@ export default function Timer() {
             }  
         })
     }
-
+    
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
         if (isActive && timer > 0) {
             interval = setInterval(() => {
-                console.log("I'm the problem 7")
                 setTimer(timer => timer - 1);
             }, 1000);
         } else if (!isActive && timer !== 0) {
             if (interval !== null) {
-                console.log("I'm the problem 8")
+
                 clearInterval(interval);
             }
         }
@@ -100,22 +97,20 @@ export default function Timer() {
     
 
     return (
-        <div>  
-            <p className="text-2xl text-center font-extralight">Pommy</p>
-            <div>
-                <p className="text-center text-3xl p-24">{minutes == 0 ? "00" : minutes}:{seconds == 0 ? '00' : seconds}</p>
-            </div>
+        <div >  
+            <p className="text-2xl text-center font-extralight p-24">Pommy</p>
+            <div className="shadow-md p-24 rounded-lg">
+                <p className="text-center text-3xl p-5">{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</p>
             <div className="flex justify-center grid-cols-2 gap-2">
                 <Button onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
                 </Button>
                 <Button onClick={reset}>Reset</Button>
             </div>
+            </div>
         </div>
     )
 }
-
-
 
 
 export { Timer } // export the component so it can be imported elsewhere
