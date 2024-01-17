@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Comfortaa } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/navbar/navbar'
+import Footer from '@/components/footer/footer'
 
 const comfortaa = Comfortaa({ subsets: ['latin'] })
 
@@ -18,9 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       
-      <body className={comfortaa.className}>
+      <body className={`${comfortaa.className} min-height-[calc(100vh - 80px)] overscroll-none`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   )

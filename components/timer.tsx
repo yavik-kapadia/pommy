@@ -97,11 +97,11 @@ export default function Timer() {
     
 
     return (
-        <div >  
-            <p className="text-2xl text-center font-extralight p-24">Pommy</p>
-            <div className="shadow-md p-24 rounded-lg">
-                <p className="text-center text-3xl p-5">{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</p>
-            <div className="flex justify-center grid-cols-2 gap-2">
+        <div className='items-center'>  
+            <p className="text-6xl text-center font-extralight p-24">Pommy</p>
+            <div>
+                <p className="text-center text-8xl">{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</p>
+            <div className="flex justify-center items-center grid-cols-2 gap-2 p-24">
                 <Button onClick={toggle}>
                     {isActive ? 'Pause' : 'Start'}
                 </Button>
